@@ -25,6 +25,16 @@
 11. *Contrato de Venda* (número, data, condições)
 12. *Departamento* (nome, chefe, orçamento)
 
+### *Tabelas escolhidas:*
+
+- Pedro: Funcionário, Cliente, Departamento 
+
+- Jamille:
+
+- João lucas: Carro, Peça, Venda
+
+- Edcsrlos:
+
 ----------------------------------------------------------------------------------------------------------------------
 
 ### *Relacionamentos:*
