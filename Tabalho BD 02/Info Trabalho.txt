@@ -25,15 +25,28 @@
 11. *Contrato de Venda* (número, data, condições)
 12. *Departamento* (nome, chefe, orçamento)
 
+
 ### *Tabelas escolhidas:*
 
-- Pedro: Funcionário, Cliente, Departamento 
+*_Pedro:_* 
+4. Funcionário
+8. Cliente
+12. Departamento 
 
-- Jamille:
+*_Jamille:_*
+6. Fornecedor
+7. Pedido de peças 
+11. Contrado de venda 
 
-- João lucas: Carro, Peça, Venda
+*_João lucas:_*
+1. Carro
+5. Peça 
+9. Venda
 
-- Edcsrlos:
+*_Edcarlos:_*
+2. Fabrica 
+3. Linha de Produção 
+10. Manutenção
 
 ----------------------------------------------------------------------------------------------------------------------
 
