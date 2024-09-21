@@ -1,0 +1,54 @@
+### *Requisitos*
+- Todas as entidades devem conter no mínimo( 1 contrutor, 5 atributos encapsulados com gets and settrs)
+- Todos os projetos devem conter ( Herança, Ifs, for, arrays, encapsulamento, construtor ...)
+- Tudo precisa ter validação de dados.
+- Deve existir apenas 1 classe main, que gere tudo o que foi solicitado.
+- Todas as entidades precisam ter dados.
+- Sistema deve ter lógica.
+- Não economizem nos atributos, isso deve ter lógica para não ter entidade com 1 atributo, entidade que podem ter varios atributos e não tem, é um problema.
+
+----------------------------------------------------------------------------------------------------------------------
+
+### *Fábrica de Carros - Sistema de Gestão de Produção e Vendas*
+
+*Entidades:*
+1. *Carro* (modelo, ano, cor, chassi)
+2. *Fabrica* (nome, local, capacidade de produção)
+3. *Linha de Produção* (nome, número, turno)
+4. *Funcionário* (nome, matrícula, função, salário)
+5. *Peça* (nome, código, tipo, fornecedor)
+6. *Fornecedor* (nome, CNPJ, contato)
+7. *Pedido de Peças* (data, quantidade, status)
+8. *Cliente* (nome, CPF, endereço)
+9. *Venda* (data, valor, forma de pagamento)
+10. *Manutenção* (data, tipo, valor)
+11. *Contrato de Venda* (número, data, condições)
+12. *Departamento* (nome, chefe, orçamento)
+
+----------------------------------------------------------------------------------------------------------------------
+
+### *Relacionamentos:*
+- *Carro - Linha de Produção (1:N)*: Uma linha de produção pode montar vários carros, mas cada carro é montado por uma única linha.
+- *Fabrica - Linha de Produção (1:N)*: Uma fábrica pode ter várias linhas de produção.
+- *Peça - Fornecedor (1:N)*: Um fornecedor pode fornecer várias peças, mas uma peça tem apenas um fornecedor.
+- *Pedido de Peças - Peça (1:N)*: Um pedido de peças pode incluir várias peças, mas uma peça pode estar em vários pedidos.
+- *Venda - Carro (1:N)*: Uma venda pode incluir vários carros, mas um carro pode ser vendido apenas uma vez.
+- *Cliente - Venda (1:N)*: Um cliente pode realizar várias compras (vendas), mas cada venda está associada a um único cliente.
+- *Manutenção - Carro (1:N)*: Um carro pode passar por várias manutenções, mas uma manutenção é feita em apenas um carro.
+- *Funcionário - Departamento (1:N)*: Um funcionário pertence a apenas um departamento, mas um departamento pode ter vários funcionários.
+- *Departamento - Fabrica (1:N)*: Uma fábrica pode ter vários departamentos, mas um departamento pertence a uma única fábrica.
+
+----------------------------------------------------------------------------------------------------------------------
+
+### *Restrições de integridade:*
+- O *chassi* do carro deve ser único (UNIQUE).
+- O *CNPJ* do fornecedor deve ser único (UNIQUE).
+- O *CPF* do cliente deve ser único (UNIQUE).
+- O *nome* da fábrica e da linha de produção não podem ser nulos (NOT NULL).
+- O *salário* do funcionário deve ser positivo (CHECK).
+- A *quantidade* no pedido de peças não pode ser negativa (CHECK).
+
+----------------------------------------------------------------------------------------------------------------------
+
+### *Explicação:*
+Este sistema abrange várias fases do processo de produção e comercialização de carros, desde a fabricação, com controle de linhas de produção e peças, até a venda para clientes e gerenciamento de contratos e manutenções. O uso de restrições garante a integridade dos dados, como a unicidade de chassi para cada carro e CPF para cada cliente.
