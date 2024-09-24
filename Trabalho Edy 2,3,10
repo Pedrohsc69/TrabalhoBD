@@ -1,0 +1,24 @@
+CREATE TABLE fabrica (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    local VARCHAR(100),
+    capacidade_producao INT
+);
+
+CREATE TABLE LinhaProducao (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    numero INT NOT NULL,
+    turno VARCHAR(100),
+    fabrica_id INT,
+    FOREIGN KEY (fabrica_id) REFERENCES fabrica(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Manutencao (
+    idManutencao INT PRIMARY KEY AUTO_INCREMENT,
+    data DATE NOT NULL,
+    tipo VARCHAR(100) NOT NULL,
+    valor VARCHAR(10),
+    linha_producao_id INT,
+    FOREIGN KEY (linha_producao_id) REFERENCES LinhaProducao(id) ON DELETE CASCADE
+);
