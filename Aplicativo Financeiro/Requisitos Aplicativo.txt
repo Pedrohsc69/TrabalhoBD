@@ -29,3 +29,14 @@ Cada transação será classificada em uma categoria (como alimentação, lazer,
 O aplicativo vai gerar relatórios mensais, mostrando o total que você gastou ou ganhou em cada categoria (por exemplo, quanto você gastou com transporte no mês).
 Ele também pode mostrar alertas, por exemplo, se você estiver perto de ultrapassar um limite de gastos que definiu para uma categoria específica (como não gastar mais de R$ 500 em lazer no mês).
 Basicamente, é um aplicativo que ajuda a organizar suas finanças, mostrando de maneira clara para onde está indo o seu dinheiro e se você está dentro do limite de gastos que definiu.
+
+----------------------------------------------------------------------------------------------------------------------
+
+### *Funções:*
+
+-- Edcarlos: Main
+-- Jamille: Transação
+-- Pedro: Usuário
+-- João: Categoria
+
+
