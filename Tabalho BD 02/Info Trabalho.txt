@@ -1,12 +1,3 @@
-### *Requisitos*
-- Todas as entidades devem conter no mínimo( 1 contrutor, 5 atributos encapsulados com gets and settrs)
-- Todos os projetos devem conter ( Herança, Ifs, for, arrays, encapsulamento, construtor ...)
-- Tudo precisa ter validação de dados.
-- Deve existir apenas 1 classe main, que gere tudo o que foi solicitado.
-- Todas as entidades precisam ter dados.
-- Sistema deve ter lógica.
-- Não economizem nos atributos, isso deve ter lógica para não ter entidade com 1 atributo, entidade que podem ter varios atributos e não tem, é um problema.
-
 ----------------------------------------------------------------------------------------------------------------------
 
 ### *Fábrica de Carros - Sistema de Gestão de Produção e Vendas*
