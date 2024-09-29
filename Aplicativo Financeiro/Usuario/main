@@ -1,0 +1,139 @@
+package Usuario;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Endereco endereco1 = new Endereco();
+        Endereco endereco2 = new Endereco();
+        
+        Usuario usuario1 = new Usuario("Junin da Kaloi", "123.456.789-90", "87 9 2345-6789", 4599.63);
+        Usuario usuario2 = new Usuario("Genivaldo Junior", "987.456.321-08", "87 9 9874-6531", 9637.50);
+
+        endereco1.setRua("Rua Norte");
+        endereco1.setNumCasa(59);
+        usuario1.setDataNascimento("25/06/2002");
+        usuario1.setEndereco(endereco1);
+
+        endereco2.setRua("Rua Central");
+        endereco2.setNumCasa(10);
+        usuario2.setEndereco(endereco2);
+
+        Categoria categoria1 = new Categoria("Administrador");
+        Categoria categoria2 = new Categoria("Gerente");
+
+        System.out.println("Usuario 1:");
+        System.out.println("Nome: " + usuario1.getNome());
+        System.out.println("CPF: " + usuario1.getCPF());
+        System.out.println("Data Nascimento: " + usuario1.getDataNascimento());
+        System.out.println("Salário: R$ " + usuario1.getSalario());
+        System.out.println("Contato: " + usuario1.getContato());
+        System.out.println("Endereço: " + usuario1.getEnderecoRua() + " N°" + usuario1.getEnderecoNumCasa());
+        categoria1.mostrarCategoria();
+
+        System.out.println("\nUsuario 2:");
+        System.out.println("Nome: " + usuario2.getNome());
+        System.out.println("CPF: " + usuario2.getCPF());
+        System.out.println("Data Nascimento: " + usuario2.getDataNascimento());
+        System.out.println("Salário: R$ " + usuario2.getSalario());
+        System.out.println("Contato: " + usuario2.getContato());
+        System.out.println("Endereço: " + usuario2.getEnderecoRua() + " N°" + usuario2.getEnderecoNumCasa());
+        categoria2.mostrarCategoria();
+    }
+}
+
+class Usuario {
+    private String nome;
+    private String cpf;
+    private String contato;
+    private double salario;
+    private String dataNascimento;
+    private Endereco endereco;
+
+    public Usuario(String nome, String cpf, String contato, double salario) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.contato = contato;
+        this.salario = salario;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCPF() {
+        return cpf;
+    }
+
+    public String getContato() {
+        return contato;
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+
+    public String getDataNascimento() {
+        if (dataNascimento == null) {
+            return "Usuário sem data de nascimento";
+        }
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getEnderecoRua() {
+        return endereco.getRua();
+    }
+
+    public int getEnderecoNumCasa() {
+        return endereco.getNumCasa();
+    }
+}
+
+class Endereco {
+    private String rua;
+    private int numCasa;
+
+    void setRua(String newRua) {
+        this.rua = newRua;  // Remove a condição, o usuário pode sempre definir a rua
+    }
+
+    void setNumCasa(int newNumCasa) {
+        this.numCasa = newNumCasa;  // Remove a condição, o usuário pode sempre definir o número da casa
+    }
+
+    String getRua() {
+        return rua;
+    }
+
+    int getNumCasa() {
+        return numCasa;
+    }
+}
+
+class Categoria {
+    private String nome;
+
+    public Categoria(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void mostrarCategoria() {
+        System.out.println("Categoria: " + nome);
+    }
+}
