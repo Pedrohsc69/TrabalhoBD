@@ -1,12 +1,16 @@
 package Usuario;
 
+import java.util.ArrayList;
+import java.util.List;
+
+// Classe Main que faz a integração com outras classes e simula um controle financeiro
 public class Main {
 
     public static void main(String[] args) {
 
         Endereco endereco1 = new Endereco();
         Endereco endereco2 = new Endereco();
-        
+
         Usuario usuario1 = new Usuario("Junin da Kaloi", "123.456.789-90", "87 9 2345-6789", 4599.63);
         Usuario usuario2 = new Usuario("Genivaldo Junior", "987.456.321-08", "87 9 9874-6531", 9637.50);
 
@@ -39,9 +43,22 @@ public class Main {
         System.out.println("Contato: " + usuario2.getContato());
         System.out.println("Endereço: " + usuario2.getEnderecoRua() + " N°" + usuario2.getEnderecoNumCasa());
         categoria2.mostrarCategoria();
+
+        // Simulação de Controle Financeiro
+        ControleFinanceiro controle = new ControleFinanceiro();
+        controle.adicionarTransacao(5000, "receita", "Salário", "2024-09-01");
+        controle.adicionarTransacao(200, "despesa", "Transporte", "2024-09-10");
+        controle.adicionarTransacao(300, "despesa", "Alimentação", "2024-09-15");
+
+        System.out.println("\n--- Transações ---");
+        controle.listarTransacoes();
+
+        System.out.println("\n--- Relatório Mensal (Setembro 2024) ---");
+        controle.gerarRelatorioMensal("09", "2024");
     }
 }
 
+// Classe Usuario
 class Usuario {
     private String nome;
     private String cpf;
@@ -97,6 +114,7 @@ class Usuario {
     }
 }
 
+// Classe Endereco
 class Endereco {
     private String rua;
     private int numCasa;
@@ -118,6 +136,7 @@ class Endereco {
     }
 }
 
+// Classe Categoria
 class Categoria {
     private String nome;
 
@@ -135,5 +154,81 @@ class Categoria {
 
     public void mostrarCategoria() {
         System.out.println("Categoria: " + nome);
+    }
+}
+
+// Classe Transacao
+class Transacao {
+    private double valor;
+    private String tipo; // "receita" ou "despesa"
+    private String categoria;
+    private String data; // Data no formato "yyyy-MM-dd"
+
+    public Transacao(double valor, String tipo, String categoria, String data) {
+        this.valor = valor;
+        this.tipo = tipo.toLowerCase();
+        this.categoria = categoria;
+        this.data = data;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    @Override
+    public String toString() {
+        return "Transacao{" + "valor=" + valor + ", tipo='" + tipo + '\'' + ", categoria='" + categoria + '\'' + ", data='" + data + '\'' + '}';
+    }
+}
+
+// Classe ControleFinanceiro
+class ControleFinanceiro {
+    private List<Transacao> transacoes;
+
+    public ControleFinanceiro() {
+        this.transacoes = new ArrayList<>();
+    }
+
+    public void adicionarTransacao(double valor, String tipo, String categoria, String data) {
+        Transacao transacao = new Transacao(valor, tipo, categoria, data);
+        transacoes.add(transacao);
+    }
+
+    public void listarTransacoes() {
+        for (Transacao transacao : transacoes) {
+            System.out.println(transacao);
+        }
+    }
+
+    public void gerarRelatorioMensal(String mes, String ano) {
+        double totalReceitas = 0;
+        double totalDespesas = 0;
+
+        for (Transacao transacao : transacoes) {
+            if (transacao.getData().startsWith(ano + "-" + mes)) {
+                System.out.println(transacao);
+                if (transacao.getTipo().equals("receita")) {
+                    totalReceitas += transacao.getValor();
+                } else if (transacao.getTipo().equals("despesa")) {
+                    totalDespesas += transacao.getValor();
+                }
+            }
+        }
+
+        System.out.printf("Total de Receitas: R$ %.2f%n", totalReceitas);
+        System.out.printf("Total de Despesas: R$ %.2f%n", totalDespesas);
+        System.out.printf("Saldo Final: R$ %.2f%n", (totalReceitas - totalDespesas));
     }
 }
