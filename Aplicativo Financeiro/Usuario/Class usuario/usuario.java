@@ -7,7 +7,6 @@ public class usuario {
 	private String dataNascimento;
 	private double salario;
 	private String contato;
-	private Endereco endereco;
 	
 	
 	usuario(String Nome, String CPF, String Contato, double Salario){
@@ -51,18 +50,5 @@ public class usuario {
 	String getContato() {
 		return contato;
 	}
-	
-	String getEnderecoRua() {
-		return endereco.getRua();
-	}
-	
-	int getEnderecoNumCasa() {
-		return endereco.getNumCasa();
-	}
-	
-	String getEnderecoCidade() {
-		return endereco.getCidade();
-	}
-	
 	
 }
