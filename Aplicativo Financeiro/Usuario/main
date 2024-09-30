@@ -3,7 +3,6 @@ package Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
-// Classe Main que faz a integração com outras classes e simula um controle financeiro
 public class Main {
 
     public static void main(String[] args) {
@@ -11,8 +10,8 @@ public class Main {
         Endereco endereco1 = new Endereco();
         Endereco endereco2 = new Endereco();
 
-        Usuario usuario1 = new Usuario("Junin da Kaloi", "123.456.789-90", "87 9 2345-6789", 4599.63);
-        Usuario usuario2 = new Usuario("Genivaldo Junior", "987.456.321-08", "87 9 9874-6531", 9637.50);
+        usuario usuario1 = new usuario("Junin da Kaloi", "123.456.789-90", "87 9 2345-6789", 4599.63);
+        usuario usuario2 = new usuario("Genivaldo Junior", "987.456.321-08", "87 9 9874-6531", 9637.50);
 
         endereco1.setRua("Rua Norte");
         endereco1.setNumCasa(59);
@@ -32,7 +31,7 @@ public class Main {
         System.out.println("Data Nascimento: " + usuario1.getDataNascimento());
         System.out.println("Salário: R$ " + usuario1.getSalario());
         System.out.println("Contato: " + usuario1.getContato());
-        System.out.println("Endereço: " + usuario1.getEnderecoRua() + " N°" + usuario1.getEnderecoNumCasa());
+        System.out.println("Endereço: " + endereco1.getRua() + " N°" + endereco1.getNumCasa());
         categoria1.mostrarCategoria();
 
         System.out.println("\nUsuario 2:");
@@ -41,10 +40,9 @@ public class Main {
         System.out.println("Data Nascimento: " + usuario2.getDataNascimento());
         System.out.println("Salário: R$ " + usuario2.getSalario());
         System.out.println("Contato: " + usuario2.getContato());
-        System.out.println("Endereço: " + usuario2.getEnderecoRua() + " N°" + usuario2.getEnderecoNumCasa());
+        System.out.println("Endereço: " + endereco2.getRua() + " N°" + endereco2.getNumCasa());
         categoria2.mostrarCategoria();
 
-        // Simulação de Controle Financeiro
         ControleFinanceiro controle = new ControleFinanceiro();
         controle.adicionarTransacao(5000, "receita", "Salário", "2024-09-01");
         controle.adicionarTransacao(200, "despesa", "Transporte", "2024-09-10");
@@ -58,63 +56,54 @@ public class Main {
     }
 }
 
-// Classe Usuario
-class Usuario {
+class usuario {
     private String nome;
     private String cpf;
-    private String contato;
-    private double salario;
     private String dataNascimento;
-    private Endereco endereco;
+    private double salario;
+    private String contato;
+    private Endereco endereco; 
 
-    public Usuario(String nome, String cpf, String contato, double salario) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.contato = contato;
-        this.salario = salario;
+    usuario(String Nome, String CPF, String Contato, double Salario) {
+        this.nome = Nome;
+        this.cpf = CPF;
+        this.contato = Contato;
+        this.salario = Salario;
     }
 
-    public String getNome() {
+    void setDataNascimento(String newDataNascimento) {
+        this.dataNascimento = newDataNascimento;
+    }
+
+    void setEndereco(Endereco newEndereco) {
+        this.endereco = newEndereco;
+    }
+
+    String getNome() {
         return nome;
     }
 
-    public String getCPF() {
+    String getCPF() {
         return cpf;
     }
 
-    public String getContato() {
-        return contato;
+    String getDataNascimento() {
+        if (dataNascimento == null) {
+            return "Usuário sem data de nascimento";
+        } else {
+            return dataNascimento;
+        }
     }
 
-    public double getSalario() {
+    double getSalario() {
         return salario;
     }
 
-    public String getDataNascimento() {
-        if (dataNascimento == null) {
-            return "Usuário sem data de nascimento";
-        }
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getEnderecoRua() {
-        return endereco.getRua();
-    }
-
-    public int getEnderecoNumCasa() {
-        return endereco.getNumCasa();
+    String getContato() {
+        return contato;
     }
 }
 
-// Classe Endereco
 class Endereco {
     private String rua;
     private int numCasa;
@@ -136,7 +125,6 @@ class Endereco {
     }
 }
 
-// Nova Classe Categoria
 class Categoria {
     private String nome;
     private String descricao;
@@ -217,12 +205,11 @@ class Categoria {
     }
 }
 
-// Classe Transacao
 class Transacao {
     private double valor;
-    private String tipo; // "receita" ou "despesa"
+    private String tipo;
     private String categoria;
-    private String data; // Data no formato "yyyy-MM-dd"
+    private String data;
 
     public Transacao(double valor, String tipo, String categoria, String data) {
         this.valor = valor;
@@ -253,7 +240,6 @@ class Transacao {
     }
 }
 
-// Classe ControleFinanceiro
 class ControleFinanceiro {
     private List<Transacao> transacoes;
 
@@ -292,3 +278,4 @@ class ControleFinanceiro {
         System.out.printf("Saldo Final: R$ %.2f%n", (totalReceitas - totalDespesas));
     }
 }
+
