@@ -3,89 +3,160 @@ package Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+class Main {
 
     public static void main(String[] args) {
-
         Usuario usuario1 = new Usuario("Junin da Kaloi", "123.456.789-90", "87 9 2345-6789", 4599.63);
         Usuario usuario2 = new Usuario("Genivaldo Junior", "987.456.321-08", "87 9 9874-6531", 9637.50);
 
-        usuario1.setDataNascimento("25/06/2002");
-        usuario2.setDataNascimento("15/11/1990");
+        usuario1.setDataNascimento("2002-06-25");
+        usuario2.setDataNascimento("1990-11-15");
 
-        Categoria categoria1 = new Categoria("Administrador", "Gerencia do sistema", 10000, 1, true);
-        Categoria categoria2 = new Categoria("Gerente", "Gerência de operações", 5000, 2, false);
+        Categoria categoriaAlimentacao = new Categoria("Alimentação", "Despesas com alimentação", 500.00, 1, true);
+        Categoria categoriaTransporte = new Categoria("Transporte", "Despesas com transporte", 300.00, 2, true);
+        Categoria categoriaLazer = new Categoria("Lazer", "Despesas com lazer", 200.00, 3, true);
 
-        System.out.println("Usuario 1:");
-        System.out.println("Nome: " + usuario1.getNome());
-        System.out.println("CPF: " + usuario1.getCPF());
-        System.out.println("Data Nascimento: " + usuario1.getDataNascimento());
-        System.out.println("Salário: R$ " + usuario1.getSalario());
-        System.out.println("Contato: " + usuario1.getContato());
-        categoria1.mostrarCategoria();
+        ControleFinanceiro controleUsuario1 = new ControleFinanceiro(usuario1);
+        ControleFinanceiro controleUsuario2 = new ControleFinanceiro(usuario2);
 
-        System.out.println("\nUsuario 2:");
-        System.out.println("Nome: " + usuario2.getNome());
-        System.out.println("CPF: " + usuario2.getCPF());
-        System.out.println("Data Nascimento: " + usuario2.getDataNascimento());
-        System.out.println("Salário: R$ " + usuario2.getSalario());
-        System.out.println("Contato: " + usuario2.getContato());
-        categoria2.mostrarCategoria();
+        controleUsuario1.adicionarTransacao(2000, "receita", categoriaAlimentacao.getNome(), "2024-09-01");
+        controleUsuario1.adicionarTransacao(100, "despesa", categoriaAlimentacao.getNome(), "2024-09-10");
+        controleUsuario1.adicionarTransacao(250, "despesa", categoriaTransporte.getNome(), "2024-09-15");
 
-        // Simulação de Controle Financeiro
-        ControleFinanceiro controle = new ControleFinanceiro();
-        controle.adicionarTransacao(5000, "receita", "Salário", "2024-09-01");
-        controle.adicionarTransacao(200, "despesa", "Transporte", "2024-09-10");
-        controle.adicionarTransacao(300, "despesa", "Alimentação", "2024-09-15");
+        controleUsuario2.adicionarTransacao(3500, "receita", categoriaAlimentacao.getNome(), "2024-09-01");
+        controleUsuario2.adicionarTransacao(50, "despesa", categoriaLazer.getNome(), "2024-09-05");
+        controleUsuario2.adicionarTransacao(150, "despesa", categoriaTransporte.getNome(), "2024-09-20");
 
-        System.out.println("\n--- Transações ---");
-        controle.listarTransacoes();
+        System.out.println("Relatório do Usuário 1:");
+        controleUsuario1.gerarRelatorioMensal("09", "2024");
 
-        System.out.println("\n--- Relatório Mensal (Setembro 2024) ---");
-        controle.gerarRelatorioMensal("09", "2024");
+        System.out.println("\nRelatório do Usuário 2:");
+        controleUsuario2.gerarRelatorioMensal("09", "2024");
     }
 }
 
 class Usuario {
     private String nome;
     private String cpf;
-    private String dataNascimento;
-    private double salario;
     private String contato;
+    private double salario;
+    private String dataNascimento;
 
-    public Usuario(String Nome, String CPF, String Contato, double Salario) {
-        this.nome = Nome;
-        this.cpf = CPF;
-        this.contato = Contato;
-        this.salario = Salario;
+    public Usuario(String nome, String cpf, String contato, double salario) {
+        setNome(nome);
+        setCpf(cpf);
+        setContato(contato);
+        setSalario(salario);
     }
 
-    void setDataNascimento(String newDataNascimento) {
-        this.dataNascimento = newDataNascimento;
-    }
-
-    String getNome() {
+    public String getNome() {
         return nome;
     }
 
-    String getCPF() {
+    public void setNome(String nome) {
+        if (nome == null || nome.isEmpty()) {
+            throw new IllegalArgumentException("O nome não pode ser vazio.");
+        }
+        this.nome = nome;
+    }
+
+    public String getCpf() {
         return cpf;
     }
 
-    String getDataNascimento() {
-        if (dataNascimento == null) {
-            return "Usuário sem data de nascimento";
-        } else {
-            return dataNascimento;
+    public void setCpf(String cpf) {
+        if (cpf == null || !cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")) {
+            throw new IllegalArgumentException("CPF inválido.");
         }
+        this.cpf = cpf;
     }
 
-    double getSalario() {
+    public String getContato() {
+        return contato;
+    }
+
+    public void setContato(String contato) {
+        if (contato == null || contato.isEmpty()) {
+            throw new IllegalArgumentException("O contato não pode ser vazio.");
+        }
+        this.contato = contato;
+    }
+
+    public double getSalario() {
         return salario;
     }
 
-    String getContato() {
-        return contato;
+    public void setSalario(double salario) {
+        if (salario < 0) {
+            throw new IllegalArgumentException("O salário não pode ser negativo.");
+        }
+        this.salario = salario;
+    }
+
+    public String getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(String dataNascimento) {
+        // Validação simples de formato de data: "yyyy-MM-dd"
+        if (!dataNascimento.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            throw new IllegalArgumentException("Data de nascimento inválida. Use o formato yyyy-MM-dd.");
+        }
+        this.dataNascimento = dataNascimento;
+    }
+}
+
+class Transacao {
+    private double valor;
+    private String tipo; 
+    private String categoria;
+    private String data;
+
+    public Transacao(double valor, String tipo, String categoria, String data) {
+        setValor(valor);
+        setTipo(tipo);
+        this.categoria = categoria;
+        this.data = data;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        if (valor < 0) {
+            throw new IllegalArgumentException("O valor não pode ser negativo.");
+        }
+        this.valor = valor;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        if (!tipo.equals("receita") && !tipo.equals("despesa")) {
+            throw new IllegalArgumentException("O tipo deve ser 'receita' ou 'despesa'.");
+        }
+        this.tipo = tipo;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    @Override
+    public String toString() {
+        return "Transacao{" +
+                "valor=R$ " + String.format("%.2f", valor) +
+                ", tipo='" + tipo + '\'' +
+                ", categoria='" + categoria + '\'' +
+                ", data='" + data + '\'' +
+                '}';
     }
 }
 
@@ -160,7 +231,7 @@ class Categoria {
         if (ativa) {
             System.out.println("Categoria: " + nome);
             System.out.println("Descrição: " + descricao);
-            System.out.println("Orçamento: " + orcamento);
+            System.out.println("Orçamento: R$ " + orcamento);
             System.out.println("Prioridade: " + prioridade);
             System.out.println("Ativa: " + ativa);
         } else {
@@ -169,46 +240,13 @@ class Categoria {
     }
 }
 
-class Transacao {
-    private double valor;
-    private String tipo;
-    private String categoria;
-    private String data;
-
-    public Transacao(double valor, String tipo, String categoria, String data) {
-        this.valor = valor;
-        this.tipo = tipo.toLowerCase();
-        this.categoria = categoria;
-        this.data = data;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    @Override
-    public String toString() {
-        return "Transacao{" + "valor=" + valor + ", tipo='" + tipo + '\'' + ", categoria='" + categoria + '\'' + ", data='" + data + '\'' + '}';
-    }
-}
-
 class ControleFinanceiro {
     private List<Transacao> transacoes;
+    private Usuario usuario; 
 
-    public ControleFinanceiro() {
+    public ControleFinanceiro(Usuario usuario) {
         this.transacoes = new ArrayList<>();
+        this.usuario = usuario; 
     }
 
     public void adicionarTransacao(double valor, String tipo, String categoria, String data) {
@@ -226,6 +264,7 @@ class ControleFinanceiro {
         double totalReceitas = 0;
         double totalDespesas = 0;
 
+        System.out.println("Relatório Mensal para " + usuario.getNome() + ":");
         for (Transacao transacao : transacoes) {
             if (transacao.getData().startsWith(ano + "-" + mes)) {
                 System.out.println(transacao);
@@ -237,8 +276,12 @@ class ControleFinanceiro {
             }
         }
 
-        System.out.printf("Total de Receitas: R$ %.2f%n", totalReceitas);
-        System.out.printf("Total de Despesas: R$ %.2f%n", totalDespesas);
-        System.out.printf("Saldo Final: R$ %.2f%n", (totalReceitas - totalDespesas));
+        if (totalReceitas == 0 && totalDespesas == 0) {
+            System.out.println("Nenhuma transação encontrada para o mês " + mes + "/" + ano + ".");
+        } else {
+            System.out.printf("Total de Receitas: R$ %.2f%n", totalReceitas);
+            System.out.printf("Total de Despesas: R$ %.2f%n", totalDespesas);
+            System.out.printf("Saldo Final: R$ %.2f%n", (totalReceitas - totalDespesas));
+        }
     }
 }
