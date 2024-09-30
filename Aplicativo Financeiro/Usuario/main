@@ -3,7 +3,6 @@ package Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
-// Classe Main que faz a integração com outras classes e simula um controle financeiro
 public class Main {
 
     public static void main(String[] args) {
@@ -44,7 +43,6 @@ public class Main {
         System.out.println("Endereço: " + usuario2.getEnderecoRua() + " N°" + usuario2.getEnderecoNumCasa());
         categoria2.mostrarCategoria();
 
-        // Simulação de Controle Financeiro
         ControleFinanceiro controle = new ControleFinanceiro();
         controle.adicionarTransacao(5000, "receita", "Salário", "2024-09-01");
         controle.adicionarTransacao(200, "despesa", "Transporte", "2024-09-10");
@@ -58,7 +56,6 @@ public class Main {
     }
 }
 
-// Classe Usuario
 class Usuario {
     private String nome;
     private String cpf;
@@ -114,7 +111,6 @@ class Usuario {
     }
 }
 
-// Classe Endereco
 class Endereco {
     private String rua;
     private int numCasa;
@@ -136,7 +132,6 @@ class Endereco {
     }
 }
 
-// Classe Categoria
 class Categoria {
     private String nome;
 
@@ -157,7 +152,6 @@ class Categoria {
     }
 }
 
-// Classe Transacao
 class Transacao {
     private double valor;
     private String tipo; // "receita" ou "despesa"
@@ -193,7 +187,6 @@ class Transacao {
     }
 }
 
-// Classe ControleFinanceiro
 class ControleFinanceiro {
     private List<Transacao> transacoes;
 
