@@ -7,20 +7,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Endereco endereco1 = new Endereco();
-        Endereco endereco2 = new Endereco();
+        Usuario usuario1 = new Usuario("Junin da Kaloi", "123.456.789-90", "87 9 2345-6789", 4599.63);
+        Usuario usuario2 = new Usuario("Genivaldo Junior", "987.456.321-08", "87 9 9874-6531", 9637.50);
 
-        usuario usuario1 = new usuario("Junin da Kaloi", "123.456.789-90", "87 9 2345-6789", 4599.63);
-        usuario usuario2 = new usuario("Genivaldo Junior", "987.456.321-08", "87 9 9874-6531", 9637.50);
-
-        endereco1.setRua("Rua Norte");
-        endereco1.setNumCasa(59);
         usuario1.setDataNascimento("25/06/2002");
-        usuario1.setEndereco(endereco1);
-
-        endereco2.setRua("Rua Central");
-        endereco2.setNumCasa(10);
-        usuario2.setEndereco(endereco2);
+        usuario2.setDataNascimento("15/11/1990");
 
         Categoria categoria1 = new Categoria("Administrador", "Gerencia do sistema", 10000, 1, true);
         Categoria categoria2 = new Categoria("Gerente", "Gerência de operações", 5000, 2, false);
@@ -31,7 +22,6 @@ public class Main {
         System.out.println("Data Nascimento: " + usuario1.getDataNascimento());
         System.out.println("Salário: R$ " + usuario1.getSalario());
         System.out.println("Contato: " + usuario1.getContato());
-        System.out.println("Endereço: " + endereco1.getRua() + " N°" + endereco1.getNumCasa());
         categoria1.mostrarCategoria();
 
         System.out.println("\nUsuario 2:");
@@ -40,9 +30,9 @@ public class Main {
         System.out.println("Data Nascimento: " + usuario2.getDataNascimento());
         System.out.println("Salário: R$ " + usuario2.getSalario());
         System.out.println("Contato: " + usuario2.getContato());
-        System.out.println("Endereço: " + endereco2.getRua() + " N°" + endereco2.getNumCasa());
         categoria2.mostrarCategoria();
 
+        // Simulação de Controle Financeiro
         ControleFinanceiro controle = new ControleFinanceiro();
         controle.adicionarTransacao(5000, "receita", "Salário", "2024-09-01");
         controle.adicionarTransacao(200, "despesa", "Transporte", "2024-09-10");
@@ -56,15 +46,14 @@ public class Main {
     }
 }
 
-class usuario {
+class Usuario {
     private String nome;
     private String cpf;
     private String dataNascimento;
     private double salario;
     private String contato;
-    private Endereco endereco; 
 
-    usuario(String Nome, String CPF, String Contato, double Salario) {
+    public Usuario(String Nome, String CPF, String Contato, double Salario) {
         this.nome = Nome;
         this.cpf = CPF;
         this.contato = Contato;
@@ -73,10 +62,6 @@ class usuario {
 
     void setDataNascimento(String newDataNascimento) {
         this.dataNascimento = newDataNascimento;
-    }
-
-    void setEndereco(Endereco newEndereco) {
-        this.endereco = newEndereco;
     }
 
     String getNome() {
@@ -104,27 +89,6 @@ class usuario {
     }
 }
 
-class Endereco {
-    private String rua;
-    private int numCasa;
-
-    void setRua(String newRua) {
-        this.rua = newRua;
-    }
-
-    void setNumCasa(int newNumCasa) {
-        this.numCasa = newNumCasa;
-    }
-
-    String getRua() {
-        return rua;
-    }
-
-    int getNumCasa() {
-        return numCasa;
-    }
-}
-
 class Categoria {
     private String nome;
     private String descricao;
@@ -132,7 +96,7 @@ class Categoria {
     private int prioridade;
     private boolean ativa;
 
-    Categoria(String nome, String descricao, double orcamento, int prioridade, boolean ativa) {
+    public Categoria(String nome, String descricao, double orcamento, int prioridade, boolean ativa) {
         setNome(nome);
         setDescricao(descricao);
         setOrcamento(orcamento);
@@ -278,4 +242,3 @@ class ControleFinanceiro {
         System.out.printf("Saldo Final: R$ %.2f%n", (totalReceitas - totalDespesas));
     }
 }
-
